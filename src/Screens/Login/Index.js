@@ -11,7 +11,6 @@ const LoginScreen = () => {
   );
 };
 
-//nada
 
 const Styles = StyleSheet.create({
   Conteiner: {
