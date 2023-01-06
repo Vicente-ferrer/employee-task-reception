@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+import { StatusBar } from "react-native";
 import { SafeAreaView } from "react-native";
 import AppRoutes from "./src/Routes/Index";
 
