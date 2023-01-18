@@ -1,27 +1,25 @@
-import { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useState, useContext, useEffect } from "react";
+import { Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { AuthContext } from "../../context/auth";
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navgation = useNavigation();
+  const [id, setid] = useState("");
+  const [password, setPassword] = useState(null);
+  const { SignIn } = useContext(AuthContext);
+  const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Faça o login</Text>
+
       <TextInput
         style={styles.input}
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-        placeholder="Email"
+        value={id}
+        onChangeText={(text) => setid(text)}
+        placeholder="CPF"
         placeholderTextColor="#999"
-        keyboardType="email-address"
+        keyboardType="numeric"
         autoCapitalize="none"
         autoCorrect={false}
       />
@@ -29,19 +27,20 @@ const LoginScreen = () => {
         style={styles.input}
         value={password}
         onChangeText={(text) => setPassword(text)}
-        placeholder="Senha"
+        placeholder="SENHA"
         placeholderTextColor="#999"
         secureTextEntry
       />
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          navgation.navigate("Home_Screen");
+          SignIn(id, password);
+          navigation.navigate("Home_Screen");
         }}
       >
         <Text style={styles.buttonText}>Fazer login</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 

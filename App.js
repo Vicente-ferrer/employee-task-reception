@@ -1,11 +1,15 @@
-import { StatusBar } from "react-native";
-import { SafeAreaView } from "react-native";
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
 import AppRoutes from "./src/Routes/Index";
-
-export default function App() {
+import { AuthProvider } from "./src/context/auth";
+const App = () => {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <AppRoutes />
-    </SafeAreaView>
+    <NavigationContainer>
+      <AuthProvider>
+        <AppRoutes></AppRoutes>
+      </AuthProvider>
+    </NavigationContainer>
   );
-}
+};
+
+export default App;

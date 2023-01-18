@@ -1,23 +1,28 @@
 import React from "react";
-import { TouchableOpacity, View, Image, Text, StyleSheet } from "react-native";
-
+import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 const Listjobs = ({ data }) => {
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity style={styles.item}>
-      <View style={styles.container}>
-        <Text style={styles.itemP1}>{data.job}</Text>
-      </View>
-    </TouchableOpacity>
+    <View>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Detail_Screen")}
+        style={styles.item}
+      >
+        <View style={styles.container}>
+          <Text style={styles.itemP1}>{data.job}</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#D90429",
     width: "100%",
     height: 50,
+    justifyContent: "center",
+    backgroundColor: "#D90429",
     borderRadius: 10,
   },
 
