@@ -14,7 +14,7 @@ import { AntDesign } from "@expo/vector-icons";
 import Listjobs from "./components/Listjobs";
 import results from "../../Components/Jobfake";
 
-const App = () => {
+const HomeScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [list, setList] = useState(results);
 
@@ -45,13 +45,13 @@ const App = () => {
           <AntDesign name="user" size={24} color="black" />
         </TouchableOpacity>
       </View>
-
-      <FlatList
-        data={list}
-        style={styles.list}
-        renderItem={({ item }) => <Listjobs data={item} />}
-        keyExtractor={(item) => item.id}
-      />
+      <View style={styles.list}>
+        <FlatList
+          data={list}
+          renderItem={({ item }) => <Listjobs data={item} />}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
 
       <StatusBar style="light" />
     </SafeAreaView>
@@ -61,11 +61,10 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFF",
-    borderTopRightRadius: 2,
+    backgroundColor: "#8D99AE",
   },
   input: {
-    flex: 1,
+    width: "70%",
     height: 50,
     backgroundColor: "#FFF",
     margin: 30,
@@ -75,6 +74,7 @@ const styles = StyleSheet.create({
     paddingRight: 15,
   },
   searchArea: {
+    width: "100%",
     paddingTop: "10%",
     flexDirection: "row",
     alignItems: "center",
@@ -85,8 +85,11 @@ const styles = StyleSheet.create({
     marginRight: 30,
   },
   list: {
-    flex: 1,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#FFFF",
+    borderRadius: 20,
   },
 });
 
-export default App;
+export default HomeScreen;
