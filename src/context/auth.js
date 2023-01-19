@@ -6,8 +6,6 @@ import { useNavigation } from "@react-navigation/native";
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const navigation = useNavigation();
-
   const SignIn = async (id, password) => {
     try {
       const response = await axios.post("/login", {

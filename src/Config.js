@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const Axios = axios.create({
-  baseURL: "Ponha aqui sua url",
+  baseURL: "http://192.168.0.6:8080/employee",
 });
 
 export default Axios;

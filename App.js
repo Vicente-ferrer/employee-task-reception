@@ -10,12 +10,6 @@ const App = () => {
       </AuthProvider>
     </NavigationContainer>
   );
-<<<<<<< HEAD
-}
-
-//qualquer coisa dnv
-=======
 };
 
 export default App;
->>>>>>> 9bbd964d9673424ad11500aa1e6b29a0f7f07790
