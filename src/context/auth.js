@@ -4,8 +4,10 @@ import React, { createContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 export const AuthContext = createContext({});
-const navigation = useNavigation();
+
 export const AuthProvider = ({ children }) => {
+  const navigation = useNavigation();
+
   const SignIn = async (id, password) => {
     try {
       const response = await axios.post("/login", {
@@ -21,6 +23,7 @@ export const AuthProvider = ({ children }) => {
       return false;
     }
   };
+
   return (
     <AuthContext.Provider value={{ SignIn }}>{children}</AuthContext.Provider>
   );

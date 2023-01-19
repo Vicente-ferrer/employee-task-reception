@@ -1,26 +1,30 @@
-import { Text, View } from "react-native";
-import React, { Component, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { ActivityIndicator } from "react-native";
+function Preload() {
+  const [userId, setUserId] = useState(null);
+  const navigation = useNavigation();
 
-const PreloadScreen = () => {
   useEffect(() => {
-    const SingUser = async () => {
-      const userId = await AsyncStorage.getItem("userId");
-      if (userId) {
-        navigation.navigate("Home_Screen");
-      } else {
+    async function getUserId() {
+      try {
+        const id = await AsyncStorage.getItem("userId");
+        if (id !== null) {
+          setUserId(id);
+          navigation.navigate("Home_Screen");
+        }
+      } catch (error) {
         navigation.navigate("Login_Screen");
       }
-    };
-    SingUser();
+    }
+    getUserId();
   }, []);
-  const navigation = useNavigation();
-  return (
-    <View>
-      <Text>PreloadScreen</Text>
-    </View>
-  );
-};
 
-export default PreloadScreen;
+  return (
+    <ActivityIndicator
+      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+    ></ActivityIndicator>
+  );
+}
+export default Preload;
