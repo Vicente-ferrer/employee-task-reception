@@ -1,3 +1,6 @@
+import { useNavigation } from "@react-navigation/native";
+import React from "react";
+
 import {
   Text,
   View,
@@ -6,26 +9,49 @@ import {
   StyleSheet,
   StatusBar,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "react-native-vector-icons";
+import ActionModal from "./ActionModal";
 
-import React from "react";
-const DetailsScreen = () => {
+const DetailsScreen = ({ route }) => {
   const navigation = useNavigation();
+  const data = route.params.data;
+
   return (
     <SafeAreaView style={Styles.container}>
       <View style={Styles.headerBtn}>
         <StatusBar barStyle="dark-content" hidden={false} translucent={true} />
-
-        <TouchableOpacity onPress={() => navigation.navigate("Home_Screen")}>
-          <Text style={Styles.btnBack}>Voltar</Text>
+        <TouchableOpacity
+          style={{ marginLeft: 5 }}
+          onPress={() => navigation.pop()}
+        >
+          <Ionicons size={40} name="arrow-back"></Ionicons>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={Styles.btnPrazo}>Aumentar prazo</Text>
-        </TouchableOpacity>
+        <View>
+          <ActionModal></ActionModal>
+        </View>
       </View>
 
       <View style={Styles.txtDetail}>
-        <Text>Tem tarefa não zé kkkkkk</Text>
+        <Text
+          style={{
+            fontSize: 24,
+            marginRight: "62%",
+            fontWeight: "bold",
+            marginTop: "-50%",
+          }}
+        >
+          Descrição:
+        </Text>
+        <Text style={{ fontSize: 18, padding: 10, marginTop: 10 }}>
+          {data.description}
+        </Text>
+      </View>
+      <View style={Styles.txtInfo}>
+        <Text style={{ fontSize: 15, marginTop: "40%" }}>
+          Criação: {data.creationDay}
+        </Text>
+
+        <Text style={{ fontSize: 15 }}>Finaliza em: {data.finishDay}</Text>
       </View>
     </SafeAreaView>
   );
@@ -47,21 +73,21 @@ const Styles = StyleSheet.create({
   },
   txtDetail: {
     width: "100%",
-    height: "100%",
+    height: "50%",
     backgroundColor: "#FFFF",
-    borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
+  },
+  txtInfo: {
+    width: "100%",
+    height: "50%",
+    backgroundColor: "#FFFF",
+    flexDirection: "column",
   },
   btnBack: {
     fontSize: 18,
     marginLeft: 15,
-    color: "#FFFFFF",
-  },
-  btnPrazo: {
-    fontSize: 18,
-    marginRight: 15,
-    color: "#FFFFFF",
+    color: "black",
   },
 });
 export default DetailsScreen;

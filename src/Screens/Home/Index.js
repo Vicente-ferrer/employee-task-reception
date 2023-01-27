@@ -3,53 +3,40 @@ import { useState, useEffect } from "react";
 import {
   SafeAreaView,
   View,
-  TextInput,
+  Text,
   FlatList,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { AntDesign } from "@expo/vector-icons";
-
 import Listjobs from "./components/Listjobs";
-import results from "../../Components/Jobfake";
-
+import axios from "../../Config";
 const HomeScreen = () => {
-  const [searchText, setSearchText] = useState("");
-  const [list, setList] = useState(results);
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    if (searchText === "") {
-      setList(results);
-    } else {
-      setList(
-        results.filter(
-          (item) =>
-            item.job.toLowerCase().indexOf(searchText.toLowerCase()) > -1
-        )
-      );
+    async function fetchData() {
+      const response = await axios.get("job/get/all");
+      setTasks(response.data);
     }
-  }, [searchText]);
+    fetchData();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchArea}>
-        <TextInput
-          style={styles.input}
-          placeholder="Pesquise uma tarefa"
-          placeholderTextColor="#888"
-          value={searchText}
-          onChangeText={(t) => setSearchText(t)}
-        />
+        <Text style={styles.txtWelcome}>Seja bem vindo(a)</Text>
         <TouchableOpacity style={styles.perfilIcon}>
-          <AntDesign name="user" size={24} color="black" />
+          <AntDesign name="user" size={30} color="black" />
         </TouchableOpacity>
       </View>
       <View style={styles.list}>
         <FlatList
-          data={list}
+          data={tasks}
           renderItem={({ item }) => <Listjobs data={item} />}
           keyExtractor={(item) => item.id}
+          initialNumToRender={8}
         />
       </View>
 
@@ -63,21 +50,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#8D99AE",
   },
-  input: {
-    width: "70%",
-    height: 50,
-    backgroundColor: "#FFF",
-    margin: 30,
-    borderRadius: 5,
-    fontSize: 19,
-    paddingLeft: 15,
-    paddingRight: 15,
+  txtWelcome: {
+    fontSize: 18,
+    marginLeft: 10,
+    fontWeight: "bold",
   },
   searchArea: {
     width: "100%",
+    height: "18%",
     paddingTop: "10%",
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     backgroundColor: "#8D99AE",
   },
   perfilIcon: {
