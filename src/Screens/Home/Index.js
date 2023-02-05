@@ -1,55 +1,71 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   SafeAreaView,
   View,
-  TextInput,
+  Text,
   FlatList,
   StyleSheet,
   TouchableOpacity,
+  BackHandler,
 } from "react-native";
+
 import { StatusBar } from "expo-status-bar";
 import { AntDesign } from "@expo/vector-icons";
-
 import Listjobs from "./components/Listjobs";
-import results from "../../Components/Jobfake";
+import { AuthContext } from "../../context/auth";
+import axios from "../../Config";
 
 const HomeScreen = () => {
-  const [searchText, setSearchText] = useState("");
-  const [list, setList] = useState(results);
-
+  const { UserInfo, userName } = useContext(AuthContext);
+  const [tasks, setTasks] = useState([]);
+  const navigation = useNavigation();
   useEffect(() => {
-    if (searchText === "") {
-      setList(results);
-    } else {
-      setList(
-        results.filter(
-          (item) =>
-            item.job.toLowerCase().indexOf(searchText.toLowerCase()) > -1
-        )
-      );
+    async function fetchData() {
+      const id = await AsyncStorage.getItem("userId");
+      const response = await axios.get("employee/find-by-id/" + id);
+
+      setTasks(response.data.jobs);
     }
-  }, [searchText]);
+    fetchData();
+    UserInfo();
+  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        navigation.navigate("Home_Screen");
+        return true;
+      };
+
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [navigation])
+  );
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchArea}>
-        <TextInput
-          style={styles.input}
-          placeholder="Pesquise uma tarefa"
-          placeholderTextColor="#888"
-          value={searchText}
-          onChangeText={(t) => setSearchText(t)}
-        />
+        <Text style={styles.txtWelcome}>Olá {userName} </Text>
         <TouchableOpacity style={styles.perfilIcon}>
-          <AntDesign name="user" size={24} color="black" />
+          <AntDesign
+            name="user"
+            size={30}
+            color="black"
+            onPress={() => navigation.navigate("Perfil_Screen")}
+          />
         </TouchableOpacity>
       </View>
       <View style={styles.list}>
         <FlatList
-          data={list}
+          data={tasks}
           renderItem={({ item }) => <Listjobs data={item} />}
           keyExtractor={(item) => item.id}
+          initialNumToRender={8}
         />
       </View>
 
@@ -63,21 +79,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#8D99AE",
   },
-  input: {
-    width: "70%",
-    height: 50,
-    backgroundColor: "#FFF",
-    margin: 30,
-    borderRadius: 5,
-    fontSize: 19,
-    paddingLeft: 15,
-    paddingRight: 15,
+  txtWelcome: {
+    fontSize: 24,
+    marginLeft: 10,
+    fontWeight: "bold",
   },
   searchArea: {
     width: "100%",
+    height: "18%",
     paddingTop: "10%",
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     backgroundColor: "#8D99AE",
   },
   perfilIcon: {
