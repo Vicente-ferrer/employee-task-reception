@@ -4,7 +4,8 @@ import HomeScreen from "../Screens/Home/Index";
 import LoginScreen from "../Screens/Login/Index";
 import DetailsScreen from "../Screens/Home/components/DetailJob";
 import PreloadScreen from "../Screens/Preload/Index";
-
+import PerfilScreen from "../Screens/Perfil/Index";
+import ActionSCreen from "../Screens/Home/components/Actions";
 const Stack = createNativeStackNavigator();
 
 const AppRoutes = () => {
@@ -29,6 +30,16 @@ const AppRoutes = () => {
         name="Detail_Screen"
         options={{ headerShown: false }}
         component={DetailsScreen}
+      />
+      <Stack.Screen
+        name="Perfil_Screen"
+        options={{ headerShown: false }}
+        component={PerfilScreen}
+      />
+      <Stack.Screen
+        name="Action_Screen"
+        options={{ headerShown: false }}
+        component={ActionSCreen}
       />
     </Stack.Navigator>
   );

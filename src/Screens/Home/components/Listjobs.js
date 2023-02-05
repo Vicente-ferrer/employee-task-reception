@@ -6,11 +6,11 @@ const Listjobs = ({ data }) => {
   return (
     <View>
       <TouchableOpacity
-        onPress={() => navigation.navigate("Detail_Screen")}
+        onPress={() => navigation.navigate("Detail_Screen", { data: data })}
         style={styles.item}
       >
         <View style={styles.container}>
-          <Text style={styles.itemP1}>{data.job}</Text>
+          <Text style={styles.itemP1}>{data.name}</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   itemP1: {
     fontSize: 22,
-    color: "#FFFF",
+    color: "black",
     marginBottom: 5,
     marginLeft: 15,
   },

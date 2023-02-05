@@ -10,19 +10,21 @@ function Preload() {
     async function getUserId() {
       try {
         const id = await AsyncStorage.getItem("userId");
-        if (id !== null) {
+        if (id) {
           setUserId(id);
           navigation.navigate("Home_Screen");
+        } else {
+          navigation.navigate("Login_Screen");
         }
-      } catch (error) {
-        navigation.navigate("Login_Screen");
-      }
+      } catch (error) {}
     }
     getUserId();
   }, []);
 
   return (
     <ActivityIndicator
+      size="large"
+      color="#00ff00"
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
     ></ActivityIndicator>
   );

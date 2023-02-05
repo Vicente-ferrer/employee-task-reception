@@ -1,6 +1,12 @@
-import { useNavigation } from "@react-navigation/native";
-import { useState, useContext } from "react";
-import { Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import React, { useState, useContext } from "react";
+import {
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  BackHandler,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AuthContext } from "../../context/auth";
 
@@ -9,6 +15,21 @@ const LoginScreen = () => {
   const [password, setPassword] = useState(null);
   const { SignIn } = useContext(AuthContext);
   const navigation = useNavigation();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        navigation.navigate("Login_Screen");
+        return true;
+      };
+
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [navigation])
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Faça o login</Text>
