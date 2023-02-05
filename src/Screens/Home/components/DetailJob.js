@@ -10,7 +10,6 @@ import {
   StatusBar,
 } from "react-native";
 import { Ionicons } from "react-native-vector-icons";
-import ActionModal from "./ActionModal";
 
 const DetailsScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -27,7 +26,11 @@ const DetailsScreen = ({ route }) => {
           <Ionicons size={40} name="arrow-back"></Ionicons>
         </TouchableOpacity>
         <View>
-          <ActionModal></ActionModal>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Action_Screen", { data: data })}
+          >
+            <Ionicons name="menu-outline" size={50}></Ionicons>
+          </TouchableOpacity>
         </View>
       </View>
 

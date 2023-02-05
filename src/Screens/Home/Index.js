@@ -1,5 +1,7 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   SafeAreaView,
   View,
@@ -7,29 +9,55 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
+  BackHandler,
 } from "react-native";
+
 import { StatusBar } from "expo-status-bar";
 import { AntDesign } from "@expo/vector-icons";
 import Listjobs from "./components/Listjobs";
-
+import { AuthContext } from "../../context/auth";
 import axios from "../../Config";
-const HomeScreen = () => {
-  const [tasks, setTasks] = useState([]);
 
+const HomeScreen = () => {
+  const { UserInfo, userName } = useContext(AuthContext);
+  const [tasks, setTasks] = useState([]);
+  const navigation = useNavigation();
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get("job/get/all");
-      setTasks(response.data);
+      const id = await AsyncStorage.getItem("userId");
+      const response = await axios.get("employee/find-by-id/" + id);
+
+      setTasks(response.data.jobs);
     }
     fetchData();
+    UserInfo();
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        navigation.navigate("Home_Screen");
+        return true;
+      };
+
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [navigation])
+  );
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchArea}>
-        <Text style={styles.txtWelcome}>Seja bem vindo(a)</Text>
+        <Text style={styles.txtWelcome}>Olá {userName} </Text>
         <TouchableOpacity style={styles.perfilIcon}>
-          <AntDesign name="user" size={30} color="black" />
+          <AntDesign
+            name="user"
+            size={30}
+            color="black"
+            onPress={() => navigation.navigate("Perfil_Screen")}
+          />
         </TouchableOpacity>
       </View>
       <View style={styles.list}>
@@ -52,7 +80,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#8D99AE",
   },
   txtWelcome: {
-    fontSize: 18,
+    fontSize: 24,
     marginLeft: 10,
     fontWeight: "bold",
   },
