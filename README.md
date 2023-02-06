@@ -106,4 +106,4 @@ on the task options screen you can request an increase in the task's deadline or
   * **Vicente de Sousa**
   Linkedin: https://www.linkedin.com/in/vicente-ferreira-7b73951a2
   * **Gustavo Borges** 
-
+  Linkedin: https://www.linkedin.com/in/gustavo-borges14
