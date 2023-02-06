@@ -92,9 +92,7 @@ on the task options screen you can request an increase in the task's deadline or
   - Repository: https://github.com/Vicente-ferrer/ManagerApp
   - Api Repository: https://github.com/ValterGabriell/Easy-Manager
   - Gustavo Borges perfil: https://github.com/Guh14
-    - In case of sensitive bugs like security vulnerabilities, please contact
-      vinciferrer78@gmail.com directly instead of using issue tracker. We value your effort
-      to improve the security and privacy of this project!
+    - if you find any bugs or vulnerabilities in the code, feel free to send an email to vinciferrer78@gmail.com I'll be happy if you have any contributions or tips too
 
   ## Versioning
 
