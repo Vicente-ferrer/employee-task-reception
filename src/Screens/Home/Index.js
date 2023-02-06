@@ -18,6 +18,8 @@ import Listjobs from "./components/Listjobs";
 import { AuthContext } from "../../context/auth";
 import axios from "../../Config";
 
+// function for fecth the tasks list
+
 const HomeScreen = () => {
   const { UserInfo, userName } = useContext(AuthContext);
   const [tasks, setTasks] = useState([]);
@@ -32,7 +34,7 @@ const HomeScreen = () => {
     fetchData();
     UserInfo();
   }, []);
-
+  //function to prevent the user from going back to the login screen
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
@@ -48,6 +50,7 @@ const HomeScreen = () => {
   );
 
   return (
+    //task list view
     <SafeAreaView style={styles.container}>
       <View style={styles.searchArea}>
         <Text style={styles.txtWelcome}>Olá {userName} </Text>

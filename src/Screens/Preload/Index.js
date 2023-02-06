@@ -5,7 +5,7 @@ import { ActivityIndicator } from "react-native";
 function Preload() {
   const [userId, setUserId] = useState(null);
   const navigation = useNavigation();
-
+  //verification screen, if there is a user previously logged in, the system will grant direct access to the home
   useEffect(() => {
     async function getUserId() {
       try {

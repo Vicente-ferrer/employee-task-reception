@@ -7,7 +7,7 @@ import PreloadScreen from "../Screens/Preload/Index";
 import PerfilScreen from "../Screens/Perfil/Index";
 import ActionSCreen from "../Screens/Home/components/Actions";
 const Stack = createNativeStackNavigator();
-
+// function to navigate the screens
 const AppRoutes = () => {
   return (
     <Stack.Navigator>

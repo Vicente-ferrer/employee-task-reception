@@ -15,6 +15,8 @@ const DetailsScreen = ({ route }) => {
   const navigation = useNavigation();
   const data = route.params.data;
 
+  // task description display screen
+
   return (
     <SafeAreaView style={Styles.container}>
       <View style={Styles.headerBtn}>

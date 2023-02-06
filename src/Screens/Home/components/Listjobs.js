@@ -1,6 +1,9 @@
 import React from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+
+//function to assist item-by-item display of the to-do list
+
 const Listjobs = ({ data }) => {
   const navigation = useNavigation();
   return (

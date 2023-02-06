@@ -4,12 +4,15 @@ import React, { createContext, useState } from "react";
 
 export const AuthContext = createContext({});
 
+// context providers for use on all screens
+
 export const AuthProvider = ({ children }) => {
   const [userName, setUserName] = useState();
   const [userEmail, setUserEmail] = useState();
   const [userCpf, setUserCpf] = useState();
   const [userHiredate, setUserHiredate] = useState();
 
+  // signin request function
   const SignIn = async (id, password) => {
     try {
       const response = await axios.post("employee/login", {
@@ -26,6 +29,8 @@ export const AuthProvider = ({ children }) => {
       console.error(error);
     }
   };
+
+  // this function return all user informations to be used on app
   const UserInfo = async () => {
     const id = await AsyncStorage.getItem("userId");
 
