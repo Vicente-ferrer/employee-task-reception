@@ -91,6 +91,7 @@ on the task options screen you can request an increase in the task's deadline or
 ## Links
   - Repository: https://github.com/Vicente-ferrer/ManagerApp
   - Api Repository: https://github.com/ValterGabriell/Easy-Manager
+  - Manager sistem: https://github.com/AkazMarinho/job-management.git
   - Gustavo Borges perfil: https://github.com/Guh14
     - if you find any bugs or vulnerabilities in the code, feel free to send an email to vinciferrer78@gmail.com I'll be happy if you have any contributions or tips too
 
